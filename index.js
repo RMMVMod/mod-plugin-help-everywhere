@@ -10,6 +10,7 @@ var readLocalFile = function(name) {
 ;[
   "Controls/PluginHelpEverywhereButton.qml",
   "Main/Dialog_PluginHelpEverywhere.qml",
+  "Event/EventCommands/EventCommand101.qml.js", // Event Commands: Show Text
 ].forEach(function(i) {
   if (path.extname(i) == ".js" && path.extname(path.basename(i, ".js")) == ".qml") {
     require("./" + i)
