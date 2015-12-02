@@ -67,6 +67,8 @@ ModalWindow {
 
                     function loadScript() {
                         var name = model.get(currentIndex).name;
+                        PluginHelpEverywhereManager.lastPluginName = name;
+
                         var url = DataManager.projectUrl + "js/plugins" + "/" + name + ".js";
                         var script = TkoolAPI.readFile(url);
                         var re = /\/\*\:([a-zA-Z_]*)([\s\S]*?)\*\//mg;
@@ -133,6 +135,12 @@ ModalWindow {
 
         onInit: {
             pluginList.refresh();
+
+            for (var i = 0; i < pluginList.rowCount; i++) {
+                if (PluginHelpEverywhereManager.lastPluginName == listModel.get(i).name) {
+                    pluginList.currentIndex = i;
+                }
+            }
         }
     }
 }

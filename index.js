@@ -1,4 +1,5 @@
 var ModAPI = require('modapi')
+var Essentials = require('mod')('essentials')
 var _ = require('lodash')
 var fs = require('fs')
 var path = require('path')
@@ -7,10 +8,12 @@ var readLocalFile = function(name) {
   return fs.readFileSync(path.join(__dirname, name))
 }
 
+Essentials.addSingleton("PluginHelpEverywhereManager", readLocalFile("Singletons/PluginHelpEverywhereManager.qml"))
+
 ;[
   "Controls/PluginHelpEverywhereButton.qml",
   "Main/Dialog_PluginHelpEverywhere.qml",
-  
+
   "Database/Group_Note.qml.js",
   "Event/EventCommands/EventCommand101.qml.js", // Event Commands: Show Text
 ].forEach(function(i) {
