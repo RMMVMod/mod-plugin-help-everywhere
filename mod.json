@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "description": "Plugin Help Everywhere",
   "dependencies": {
-    "essentials": ">=0.0.0"
+    "essentials": ">=0.0.0",
+    "plugin-parser": ">=0.0.0"
   },
   "author": "orzFly",
   "homepage": "https://github.com/RMMVMod/mod-plugin-help-everywhere"

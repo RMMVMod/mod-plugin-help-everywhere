@@ -71,49 +71,7 @@ ModalWindow {
 
                         var url = DataManager.projectUrl + "js/plugins" + "/" + name + ".js";
                         var script = TkoolAPI.readFile(url);
-                        var re = /\/\*\:([a-zA-Z_]*)([\s\S]*?)\*\//mg;
-                        var locale = TkoolAPI.locale();
-                        var englishComments = "";
-                        var localComments = "";
-                        pluginHelp.text = "";
-                        for (;;) {
-                            var match = re.exec(script);
-                            if (match) {
-                                var lang = match[1];
-                                if (!lang || lang === "en") {
-                                    englishComments = match[2];
-                                } else if (lang.length >= 2 && locale.indexOf(lang) === 0) {
-                                    localComments = match[2];
-                                }
-                            } else {
-                                break;
-                            }
-                        }
-                        if (localComments) {
-                            processCommentBlock(localComments);
-                        } else {
-                            processCommentBlock(englishComments);
-                        }
-                    }
-
-                    function processCommentBlock(comments) {
-                        var re = /@(\w+)([^@]*)/g;
-                        for (;;) {
-                            var match = re.exec(comments);
-                            if (!match) {
-                                break;
-                            }
-                            var keyword = match[1];
-                            var text = match[2];
-                            text = text.replace(/[ ]*\n[ ]*\*?[ ]?/g, "\n");
-                            text = text.trim();
-                            var text2 = text.split("\n")[0];
-                            switch (keyword) {
-                            case 'help':
-                                pluginHelp.text = text;
-                                break;
-                            }
-                        }
+                        pluginHelp.text = PluginParser.parse(script).help || "";
                     }
                 }
 
