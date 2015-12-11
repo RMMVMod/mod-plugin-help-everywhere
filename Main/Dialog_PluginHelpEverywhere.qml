@@ -5,6 +5,8 @@ import "../BasicControls"
 import "../BasicLayouts"
 import "../Controls"
 import "../Singletons"
+import "../Singletons/plugin-parser"
+import "../Singletons/plugin-help-everywhere"
 
 ModalWindow {
     id: root
