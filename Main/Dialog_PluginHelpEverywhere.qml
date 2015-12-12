@@ -70,10 +70,7 @@ ModalWindow {
                     function loadScript() {
                         var name = model.get(currentIndex).name;
                         PluginHelpEverywhereManager.lastPluginName = name;
-
-                        var url = DataManager.projectUrl + "js/plugins" + "/" + name + ".js";
-                        var script = TkoolAPI.readFile(url);
-                        pluginHelp.text = PluginParser.parse(script).help || "";
+                        pluginHelp.text = PluginParser.parsePlugin(name).help || "";
                     }
                 }
 
