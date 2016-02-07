@@ -1,4 +1,5 @@
 var ModAPI = require('modapi')
+var Essentials = require('mod')('essentials')
 var _ = require('lodash')
 var fs = require('fs')
 var path = require('path')
@@ -7,9 +8,9 @@ var readLocalFile = function(name) {
   return fs.readFileSync(path.join(__dirname, name))
 }
 
+Essentials.addSingleton("PluginHelpEverywhereManager", readLocalFile("Singletons/PluginHelpEverywhereManager.qml"))
+
 ;[
-  "Singletons/plugin-help-everywhere/qmldir",
-  "Singletons/plugin-help-everywhere/PluginHelpEverywhereManager.qml",
   "Controls/PluginHelpEverywhereButton.qml",
   "Main/Dialog_PluginHelpEverywhere.qml",
 
@@ -33,18 +34,16 @@ var readLocalFile = function(name) {
   // Movement Commands
   "Event/MovementCommands/MovementCommand45.qml", // Script
 ].forEach(function(i) {
-  var qml = ModAPI.QMLFile(i)
+  var qml = ModAPI.QMLFileV2(i)
   var addon, button
 
-  if ((addon = qml.getObjectsByDescribe("DialogAddon")).length > 0) {
+  if ((addon = qml.root.getObjectsByType("DialogAddon")).length > 0) {
     addon = addon[0]
   } else {
-    addon = qml.root.node.newObject()
-    addon.createNode().describe = "DialogAddon"
+    addon = ModAPI.QMLNodeV2('DialogAddon')
+    qml.root.add(addon)
   }
-
-  button = addon.node.newObject()
-  button.createNode().describe = "PluginHelpEverywhereButton"
+  addon.add(ModAPI.QMLNodeV2('PluginHelpEverywhereButton'))
 
   qml.save()
 })
